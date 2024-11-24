@@ -1,0 +1,4 @@
+Flask
+ibm-cos-sdk
+ibm-watson
+ibm-cloud-sdk-core
