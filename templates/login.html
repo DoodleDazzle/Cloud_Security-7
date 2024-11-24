@@ -3,61 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>CS Login</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            padding: 1.5rem;
+        }
+
         .login-container {
+            width: 100%;
+            max-width: 400px;
             background-color: white;
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        h2 {
             text-align: center;
-            margin-bottom: 1rem;
         }
+
+        .logo {
+            width: 64px;
+            height: 64px;
+            background-color: black;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: black;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #fbbf24;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .dot-1 {
+            top: -4px;
+            right: -4px;
+        }
+
+        .dot-2 {
+            top: 8px;
+            left: -4px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
         label {
             display: block;
-            margin: 0.5rem 0 0.2rem;
+            text-align: left;
+            margin: 0.5rem 0 0.25rem;
         }
+
         input {
             width: 100%;
-            padding: 0.5rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            background-color: #f9fafb;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
         }
+
+        input:focus {
+            border-color: #fbbf24;
+        }
+
         button {
-            background-color: #007bff;
-            color: white;
-            padding: 0.7rem;
             width: 100%;
+            padding: 0.75rem;
+            background-color: #fbbf24;
             border: none;
-            border-radius: 5px;
+            border-radius: 0.75rem;
+            color: black;
+            font-weight: 500;
+            font-size: 1rem;
             cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
         }
+
         button:hover {
-            background-color: #0056b3;
+            background-color: #f59e0b;
         }
+
         .alert {
             color: red;
-            text-align: center;
             margin-top: 1rem;
         }
     </style>
 </head>
 <body>
-
     <div class="login-container">
-        <h2>Login</h2>
+        <div class="logo">
+            <div class="dot dot-1"></div>
+            <div class="dot dot-2"></div>
+        </div>
+
+        <h2>Welcome to CloudSecurity!</h2>
         <form method="POST">
             <label for="username">Username:</label>
             <input type="text" name="username" required>
@@ -75,6 +157,5 @@
         {% endif %}
         {% endwith %}
     </div>
-
 </body>
 </html>

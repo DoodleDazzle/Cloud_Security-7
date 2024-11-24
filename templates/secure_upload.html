@@ -6,46 +6,80 @@
     <title>Secure File Upload</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: 	#E3DDD3; /* Light cyan background */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
+            padding: 1rem;
         }
+
         .container {
-            text-align: center;
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            padding: 2rem 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Softer shadow */
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
         }
+
+        .container:hover {
+            transform: translateY(-5px); /* Subtle lift on hover */
+        }
+
         h1 {
-            color: #333;
+            color: #333333;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
         }
+
         input[type="file"] {
             margin: 1rem 0;
-        }
-        button {
-            background-color: #007BFF;
-            color: white;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 5px;
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px dashed #00bcd4;
+            border-radius: 8px;
+            background-color: #f0f9ff; /* Light blue background */
             cursor: pointer;
+            transition: border-color 0.3s;
         }
+
+        input[type="file"]:hover {
+            border-color: #007bff;
+        }
+
+        button {
+            background-color: #ffdc09; /* yellow */
+            color: black;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
         button:hover {
-            background-color: #0056b3;
+            background-color: #007bff; /* Darker blue on hover */
         }
+
         #message {
-            margin-top: 1rem;
-            color: green;
+            margin-top: 1.2rem;
+            color: #28a745; /* Green for success */
+            font-weight: bold;
+            font-size: 1rem;
         }
+
         .alert {
-            color: red;
-            margin-top: 1rem;
+            color: #dc3545; /* Red for errors */
+            margin-top: 1.2rem;
+            font-weight: bold;
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -54,11 +88,9 @@
         <h1>Secure File Upload</h1>
         <form id="uploadForm" enctype="multipart/form-data" method="POST">
             <input type="file" id="file" name="file" required>
-            <br>
             <button type="submit">Upload</button>
         </form>
         <p id="message"></p>
-        <!-- Display error messages if there are any -->
         <div id="alert" class="alert"></div>
     </div>
 
@@ -73,6 +105,9 @@
             const formData = new FormData();
             formData.append('file', fileInput.files[0]);
 
+            message.textContent = '';
+            alertBox.textContent = '';
+
             try {
                 const response = await fetch('/upload', {
                     method: 'POST',
@@ -80,17 +115,16 @@
                 });
 
                 const result = await response.json();
+
                 if (response.ok) {
-                    message.textContent = result.message;
-                    message.style.color = 'green';
-                    alertBox.textContent = '';  // Clear any previous errors
+                    message.textContent = result.message || 'File uploaded successfully!';
+                    alertBox.textContent = '';  // Clear previous error messages
                 } else {
-                    message.textContent = '';  // Clear any success messages
-                    alertBox.textContent = result.error || 'Upload failed.';
+                    throw new Error(result.error || 'Upload failed.');
                 }
             } catch (error) {
+                alertBox.textContent = error.message || 'Error uploading file. Please try again.';
                 message.textContent = '';  // Clear any success messages
-                alertBox.textContent = 'Error uploading file. Please try again.';
             }
         });
     </script>
